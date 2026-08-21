@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+
 export default function Principal() {
   const [horasOrdinarias, setHorasOrdinarias] = useState("");
   const [horasExtras, setHorasExtras] = useState("");
@@ -23,12 +23,14 @@ export default function Principal() {
     const rebajaBancoPopular = salarioBruto * 0.01;
     const salarioNeto =
       salarioBruto - rebajaCCSS - rebajaIVM - rebajaBancoPopular;
+
     setSalarioBruto(salarioBruto);
     setRebajaCCSS(rebajaCCSS);
     setRebajaIVM(rebajaIVM);
     setRebajaBancoPopular(rebajaBancoPopular);
     setSalarioNeto(salarioNeto);
   };
+
   const handleLimpiarInputs = () => {
     setHorasOrdinarias("");
     setHorasExtras("");
@@ -39,6 +41,7 @@ export default function Principal() {
     setRebajaIVM(0);
     setRebajaBancoPopular(0);
   };
+
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat("es-CR", {
       style: "currency",
@@ -49,14 +52,20 @@ export default function Principal() {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col items-center ">
-      <h1 className="text-4xl text-white dark:text-zinc-50 flex justify-center items-center text-center">
+    <div className="w-full h-screen flex flex-col items-center bg-gray-100 dark:bg-black">
+      <h1 className="text-4xl text-black dark:text-zinc-50 flex justify-center items-center text-center mt-6">
         Calcular Salario Quincenal
       </h1>
-      <h3 className="text-sm text-white mt-10 dark:text-zinc-50 flex justify-center items-center text-center">
+      <h3 className="text-sm text-black dark:text-zinc-50 mt-4 flex justify-center items-center text-center">
         Usar . para separar los decimales
       </h3>
-      <div className="flex md:flex-row flex-col  mt-10 border-2 w-95% md:w-1/2 rounded-2xl p-4 h-auto md:h-40 items-center text-white justify-around bg-zinc-50 font-sans dark:bg-black">
+
+      {/* Inputs */}
+      <div
+        className="flex md:flex-row flex-col mt-10 border-2 w-[95%] md:w-1/2 rounded-2xl p-4 h-auto md:h-40 
+                      items-center justify-around font-sans 
+                      bg-blue-100 dark:bg-zinc-900 text-black dark:text-white"
+      >
         <div>
           <label
             htmlFor="horasOrdinarias"
@@ -65,7 +74,7 @@ export default function Principal() {
             Horas ordinarias trabajadas
           </label>
           <input
-            className="flex  border rounded w-auto text-center items-center justify-center"
+            className="flex border rounded w-auto text-center items-center justify-center bg-white dark:bg-zinc-800"
             type="text"
             inputMode="decimal"
             placeholder="Horas ordinarias trabajadas"
@@ -81,7 +90,7 @@ export default function Principal() {
             Horas extras trabajadas
           </label>
           <input
-            className="flex w-auto border rounded text-center items-center justify-center"
+            className="flex w-auto border rounded text-center items-center justify-center bg-white dark:bg-zinc-800"
             type="text"
             inputMode="decimal"
             placeholder="Horas extras trabajadas"
@@ -97,7 +106,7 @@ export default function Principal() {
             Salario por hora
           </label>
           <input
-            className="flex w-auto border rounded text-center items-center justify-center"
+            className="flex w-auto border rounded text-center items-center justify-center bg-white dark:bg-zinc-800"
             type="text"
             inputMode="decimal"
             placeholder="Salario por hora"
@@ -106,8 +115,10 @@ export default function Principal() {
           />
         </div>
       </div>
+
+      {/* Botones */}
       <button
-        className="bg-blue-500 w-95% md:w-1/2 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-blue-500 w-[95%] md:w-1/2 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onClick={handleCalcular}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
@@ -118,46 +129,54 @@ export default function Principal() {
         Calcular
       </button>
       <button
-        className="bg-blue-500 w-95% md:w-1/2 mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        className="bg-red-500 w-[95%] md:w-1/2 mt-4 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
         onClick={handleLimpiarInputs}
       >
         Limpiar Inputs
       </button>
-      <div className="flex mt-10 flex-col items-center text-white justify-center bg-zinc-50 font-sans dark:bg-black">
+
+      {/* Info */}
+      <div
+        className="flex mt-10 flex-col items-center justify-center font-sans 
+                      bg-yellow-100 dark:bg-zinc-900 text-black dark:text-white p-4 rounded-xl"
+      >
         <h3 className="w-[90%] md:w-1/2 text-center">
           Rebajas de 5.5% CCSS, 4.33% IVM y 1% Aporte banco popular
         </h3>
       </div>
 
-      <div className="flex md:flex-row flex-col mt-10 w-full md:w-full items-center text-white justify-around bg-zinc-50 font-sans dark:bg-black">
+      {/* Resultados */}
+      <div
+        className="flex md:flex-row flex-col mt-10 w-full md:w-full items-center justify-around font-sans 
+                      bg-green-100 dark:bg-zinc-900 text-black dark:text-white p-4 rounded-xl"
+      >
         <div>
           <h2 className="text-2xl text-center">Salario Bruto</h2>
-          <h2 className="text-2xl text-center text-green-500">
+          <h2 className="text-2xl text-center text-green-600 dark:text-green-400">
             {formatCurrency(salarioBruto)}
           </h2>
         </div>
         <div>
           <h2 className="text-2xl text-center">Salario Neto</h2>
-          <h2 className="text-2xl text-center text-green-500">
+          <h2 className="text-2xl text-center text-green-600 dark:text-green-400">
             {formatCurrency(salarioNeto)}
           </h2>
         </div>
-
         <div>
           <h2 className="text-2xl text-center">Rebaja CCSS</h2>
-          <h2 className="text-2xl text-center text-red-500">
+          <h2 className="text-2xl text-center text-red-600 dark:text-red-400">
             {formatCurrency(rebajaCCSS)}
           </h2>
         </div>
         <div>
           <h2 className="text-2xl text-center">Rebaja IVM</h2>
-          <h2 className="text-2xl text-center text-red-500">
+          <h2 className="text-2xl text-center text-red-600 dark:text-red-400">
             {formatCurrency(rebajaIVM)}
           </h2>
         </div>
         <div>
           <h2 className="text-2xl text-center">Rebaja Banco Popular</h2>
-          <h2 className="text-2xl text-center text-red-500">
+          <h2 className="text-2xl text-center text-red-600 dark:text-red-400">
             {formatCurrency(rebajaBancoPopular)}
           </h2>
         </div>
